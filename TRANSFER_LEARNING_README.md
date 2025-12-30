@@ -32,22 +32,35 @@ The key question: **Does transfer from grokked addition → subtraction reduce t
 
 ## Running the Experiment
 
-### On Google Colab (Recommended)
+We provide **two notebooks** for different use cases:
 
-1. **Open the notebook in Colab:**
-   - Upload `transfer_learning_experiment.ipynb` to Google Colab
-   - Or use this direct link: [Open in Colab](https://colab.research.google.com/github/Junekhunter/progress-measures-paper-extension/blob/main/transfer_learning_experiment.ipynb)
+### Option 1: Quick Single-Run (`transfer_learning_experiment.ipynb`)
+- **Best for**: Quick exploration, testing the setup
+- **Runtime**: ~20-40 minutes on GPU
+- **Direct link**: [Open in Colab](https://colab.research.google.com/github/Junekhunter/progress-measures-paper-extension/blob/main/transfer_learning_experiment.ipynb)
 
-2. **Run all cells:**
-   - The notebook will automatically:
-     - Clone the repository
-     - Install dependencies
-     - Load the grokked addition checkpoint
-     - Run both transfer learning and baseline experiments
-     - Generate comparison visualizations
-     - Save results
+### Option 2: Multi-Seed Robust Analysis (`transfer_learning_multiseed.ipynb`) ⭐ **RECOMMENDED**
+- **Best for**: Publication-quality results with statistical analysis
+- **Features**:
+  - ✅ Runs 5 different seeds for statistical robustness
+  - ✅ Google Drive integration for persistent storage
+  - ✅ Aggregated results with mean/std/confidence intervals
+  - ✅ Publication-ready visualizations
+- **Runtime**: ~2-3 hours on GPU (5 seeds × 2 conditions)
+- **Direct link**: [Open in Colab](https://colab.research.google.com/github/Junekhunter/progress-measures-paper-extension/blob/main/transfer_learning_multiseed.ipynb)
 
-3. **Expected runtime:** ~20-40 minutes on Colab GPU
+### Quick Start (Multi-Seed)
+
+1. **Open the multi-seed notebook in Colab** using the link above
+2. **Mount Google Drive** when prompted (results will be saved there)
+3. **Run all cells** - the notebook handles everything:
+   - Clones repository and installs dependencies
+   - Loads grokked addition checkpoint
+   - Runs 5×2=10 experiments (5 seeds, 2 conditions each)
+   - Aggregates results with statistical analysis
+   - Generates publication-quality figures
+   - Saves everything to Google Drive
+4. **Results saved to**: `MyDrive/grokking_transfer_experiments/run_TIMESTAMP/`
 
 ### Locally (if dependencies installed)
 
@@ -80,7 +93,8 @@ If the grokked addition model has learned generalizable representations of modul
 
 ## Files
 
-- **`transfer_learning_experiment.ipynb`**: Main experiment notebook for Google Colab
+- **`transfer_learning_experiment.ipynb`**: Single-run experiment notebook
+- **`transfer_learning_multiseed.ipynb`**: ⭐ Multi-seed experiment with statistical analysis (recommended)
 - **`transformers.py`**: Model architecture (1-layer transformer)
 - **`helpers.py`**: Helper functions for training and evaluation
 - **`saved_runs/`**: Pre-trained checkpoints including grokked addition models
@@ -106,10 +120,35 @@ The notebook generates comprehensive plots:
 
 ## Output Files
 
-After running the experiment:
+### Single-Run Notebook
+After running `transfer_learning_experiment.ipynb`:
 - **`transfer_learning_results.png`**: Visualization of all metrics
 - **`transfer_learning_experiment_results.pth`**: PyTorch checkpoint with full results
 - **`transfer_learning_experiment_results.npz`**: NumPy arrays for easy analysis
+
+### Multi-Seed Notebook ⭐
+After running `transfer_learning_multiseed.ipynb`, results are saved to Google Drive:
+```
+MyDrive/grokking_transfer_experiments/run_YYYYMMDD_HHMMSS/
+├── figures/
+│   └── multiseed_results.png          # Publication-quality 6-panel figure
+├── checkpoints/
+│   ├── transfer_seed42.pth            # Individual model checkpoints
+│   ├── transfer_seed123.pth           # (one per seed)
+│   ├── baseline_seed42.pth
+│   └── ... (10 total)
+└── results/
+    ├── complete_results.pth           # All experimental data
+    ├── curves.npz                     # Numpy arrays of all curves
+    └── aggregated_stats.json          # Summary statistics (mean/std/CI)
+```
+
+The multi-seed results include:
+- Mean and standard deviation across seeds
+- 95% confidence intervals
+- Individual run traces
+- Box plots of key metrics
+- Statistical comparison between transfer and baseline
 
 ## Citation
 
