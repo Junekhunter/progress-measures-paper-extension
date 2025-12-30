@@ -32,22 +32,32 @@ The key question: **Does transfer from grokked addition → subtraction reduce t
 
 ## Running the Experiment
 
-We provide **two notebooks** for different use cases:
+We provide **three notebooks** for different use cases:
 
 ### Option 1: Quick Single-Run (`transfer_learning_experiment.ipynb`)
 - **Best for**: Quick exploration, testing the setup
 - **Runtime**: ~20-40 minutes on GPU
+- **Epochs**: 5K for both conditions
 - **Direct link**: [Open in Colab](https://colab.research.google.com/github/Junekhunter/progress-measures-paper-extension/blob/main/transfer_learning_experiment.ipynb)
 
-### Option 2: Multi-Seed Robust Analysis (`transfer_learning_multiseed.ipynb`) ⭐ **RECOMMENDED**
-- **Best for**: Publication-quality results with statistical analysis
-- **Features**:
-  - ✅ Runs 5 different seeds for statistical robustness
-  - ✅ Google Drive integration for persistent storage
-  - ✅ Aggregated results with mean/std/confidence intervals
-  - ✅ Publication-ready visualizations
-- **Runtime**: ~2-3 hours on GPU (5 seeds × 2 conditions)
+### Option 2: Multi-Seed Analysis (`transfer_learning_multiseed.ipynb`)
+- **Best for**: Statistical robustness with reasonable compute
+- **Features**: 5 seeds, 5K epochs per condition, 90% threshold
+- **Runtime**: ~2-3 hours on GPU
 - **Direct link**: [Open in Colab](https://colab.research.google.com/github/Junekhunter/progress-measures-paper-extension/blob/main/transfer_learning_multiseed.ipynb)
+
+### Option 3: Comprehensive Analysis (`transfer_learning_comprehensive.ipynb`) ⭐ **RECOMMENDED**
+- **Best for**: Complete publication-quality analysis with extended training
+- **Features**:
+  - ✅ Extended epochs: 10K transfer, **30K baseline** (captures grokking)
+  - ✅ Multiple thresholds: 90%, 95%, 99%, **99.9%** accuracy
+  - ✅ Grokking moment detection
+  - ✅ 5 different seeds for statistical robustness
+  - ✅ Google Drive integration for persistent storage
+  - ✅ Comprehensive statistical analysis with confidence intervals
+  - ✅ Publication-ready multi-panel visualizations
+- **Runtime**: ~6-8 hours on GPU (5 seeds × 2 conditions with extended epochs)
+- **Direct link**: [Open in Colab](https://colab.research.google.com/github/Junekhunter/progress-measures-paper-extension/blob/main/transfer_learning_comprehensive.ipynb)
 
 ### Quick Start (Multi-Seed)
 
@@ -93,8 +103,10 @@ If the grokked addition model has learned generalizable representations of modul
 
 ## Files
 
-- **`transfer_learning_experiment.ipynb`**: Single-run experiment notebook
-- **`transfer_learning_multiseed.ipynb`**: ⭐ Multi-seed experiment with statistical analysis (recommended)
+- **`transfer_learning_experiment.ipynb`**: Single-run experiment (quick test)
+- **`transfer_learning_multiseed.ipynb`**: Multi-seed with 5K epochs
+- **`transfer_learning_comprehensive.ipynb`**: ⭐ **Comprehensive analysis with extended epochs and 99.9% threshold (recommended)**
+- **`EXPERIMENT_RECOMMENDATIONS.md`**: Analysis and recommendations based on initial results
 - **`transformers.py`**: Model architecture (1-layer transformer)
 - **`helpers.py`**: Helper functions for training and evaluation
 - **`saved_runs/`**: Pre-trained checkpoints including grokked addition models
