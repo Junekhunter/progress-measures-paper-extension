@@ -46,7 +46,7 @@ We provide **three notebooks** for different use cases:
 - **Runtime**: ~2-3 hours on GPU
 - **Direct link**: [Open in Colab](https://colab.research.google.com/github/Junekhunter/progress-measures-paper-extension/blob/main/transfer_learning_multiseed.ipynb)
 
-### Option 3: Comprehensive Analysis (`transfer_learning_comprehensive.ipynb`) ⭐ **RECOMMENDED**
+### Option 3: Comprehensive Analysis (`transfer_learning_comprehensive.ipynb`)
 - **Best for**: Complete publication-quality analysis with extended training
 - **Features**:
   - ✅ Extended epochs: 10K transfer, **30K baseline** (captures grokking)
@@ -58,6 +58,21 @@ We provide **three notebooks** for different use cases:
   - ✅ Publication-ready multi-panel visualizations
 - **Runtime**: ~6-8 hours on GPU (5 seeds × 2 conditions with extended epochs)
 - **Direct link**: [Open in Colab](https://colab.research.google.com/github/Junekhunter/progress-measures-paper-extension/blob/main/transfer_learning_comprehensive.ipynb)
+
+### Option 4: 3-Way Comparison with Memorized Control (`transfer_learning_3way.ipynb`) ⭐ **MOST RIGOROUS**
+- **Best for**: Proving that grokked (generalized) mechanisms specifically enable transfer
+- **Three Conditions**:
+  1. **Grokked transfer**: From fully grokked addition model
+  2. **Memorized transfer**: From memorized (non-grokked) addition model 🔬 **NEW CONTROL**
+  3. **Random baseline**: From scratch
+- **Key Question**: Is it specifically generalization that transfers, or any training?
+- **Features**:
+  - ✅ All features from Option 3
+  - ✅ Critical control: memorized vs grokked comparison
+  - ✅ Proves mechanism specificity
+  - ✅ Publication-quality evidence for grokking theory
+- **Runtime**: ~8-10 hours on GPU (5 seeds × 3 conditions)
+- **Direct link**: [Open in Colab](https://colab.research.google.com/github/Junekhunter/progress-measures-paper-extension/blob/main/transfer_learning_3way.ipynb)
 
 ### Quick Start (Multi-Seed)
 
@@ -103,9 +118,13 @@ If the grokked addition model has learned generalizable representations of modul
 
 ## Files
 
-- **`transfer_learning_experiment.ipynb`**: Single-run experiment (quick test)
-- **`transfer_learning_multiseed.ipynb`**: Multi-seed with 5K epochs
-- **`transfer_learning_comprehensive.ipynb`**: ⭐ **Comprehensive analysis with extended epochs and 99.9% threshold (recommended)**
+### Experiment Notebooks
+- **`transfer_learning_experiment.ipynb`**: Single-run experiment (quick test, 20 min)
+- **`transfer_learning_multiseed.ipynb`**: Multi-seed with 5K epochs (2-3 hr)
+- **`transfer_learning_comprehensive.ipynb`**: Extended epochs + 99.9% threshold (6-8 hr)
+- **`transfer_learning_3way.ipynb`**: ⭐ **3-way comparison with memorized control (most rigorous, 8-10 hr)**
+
+### Documentation & Code
 - **`EXPERIMENT_RECOMMENDATIONS.md`**: Analysis and recommendations based on initial results
 - **`transformers.py`**: Model architecture (1-layer transformer)
 - **`helpers.py`**: Helper functions for training and evaluation
