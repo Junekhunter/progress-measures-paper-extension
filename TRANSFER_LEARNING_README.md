@@ -74,6 +74,20 @@ We provide **three notebooks** for different use cases:
 - **Runtime**: ~8-10 hours on GPU (5 seeds × 3 conditions)
 - **Direct link**: [Open in Colab](https://colab.research.google.com/github/Junekhunter/progress-measures-paper-extension/blob/main/transfer_learning_3way.ipynb)
 
+### Option 5: Mechanistic Circuit Analysis (`circuit_analysis.ipynb`) 🔬 **INTERPRETABILITY**
+- **Best for**: Understanding WHAT circuits actually transfer between models
+- **Prerequisite**: Must run Option 4 (3-way experiment) first to generate model checkpoints
+- **Key Question**: Do grokked circuits structurally transfer more than memorized circuits?
+- **Analyses**:
+  - ✅ **Fourier analysis**: Which frequency components each model uses
+  - ✅ **Neuron specialization**: Which frequencies each MLP neuron detects
+  - ✅ **Attention patterns**: How attention heads allocate across positions (a, b, =)
+  - ✅ **Circuit similarity**: Quantitative comparison of circuit structure
+- **Uses**: Interpretability tools from the original progress-measures paper
+- **Outputs**: 4 publication-quality mechanistic visualizations
+- **Runtime**: ~5-10 minutes (analysis only, no training)
+- **Direct link**: [Open in Colab](https://colab.research.google.com/github/Junekhunter/progress-measures-paper-extension/blob/main/circuit_analysis.ipynb)
+
 ### Quick Start (Multi-Seed)
 
 1. **Open the multi-seed notebook in Colab** using the link above
@@ -123,9 +137,16 @@ If the grokked addition model has learned generalizable representations of modul
 - **`transfer_learning_multiseed.ipynb`**: Multi-seed with 5K epochs (2-3 hr)
 - **`transfer_learning_comprehensive.ipynb`**: Extended epochs + 99.9% threshold (6-8 hr)
 - **`transfer_learning_3way.ipynb`**: ⭐ **3-way comparison with memorized control (most rigorous, 8-10 hr)**
+- **`circuit_analysis.ipynb`**: 🔬 **Mechanistic interpretability analysis (5-10 min)**
+
+### Analysis Tools
+- **`analyze_seed_outlier.py`**: Comprehensive standalone analysis of seed variance
+- **`seed_outlier_analysis_colab.py`**: Colab-ready version for quick outlier investigation
+- **`inspect_checkpoint.py`**: Utility to inspect saved model checkpoints
 
 ### Documentation & Code
 - **`EXPERIMENT_RECOMMENDATIONS.md`**: Analysis and recommendations based on initial results
+- **`TRANSFER_LEARNING_README.md`**: This file - comprehensive experiment documentation
 - **`transformers.py`**: Model architecture (1-layer transformer)
 - **`helpers.py`**: Helper functions for training and evaluation
 - **`saved_runs/`**: Pre-trained checkpoints including grokked addition models
@@ -181,6 +202,22 @@ The multi-seed results include:
 - Box plots of key metrics
 - Statistical comparison between transfer and baseline
 
+### Circuit Analysis Notebook 🔬
+After running `circuit_analysis.ipynb`, mechanistic interpretability results are saved:
+```
+MyDrive/grokking_transfer_experiments/3way_run_YYYYMMDD_HHMMSS/figures/
+├── fourier_coefficients_comparison.png    # Frequency components used by each model
+├── neuron_frequency_specialization.png    # Which frequencies neurons detect
+├── attention_patterns.png                 # Attention head behavior (4 models × heads)
+└── circuit_similarity_matrices.png        # Quantitative circuit similarity
+```
+
+These visualizations reveal:
+- Which Fourier frequencies each model uses to represent outputs
+- How MLP neurons specialize for different frequency detection
+- How attention patterns differ between source and transferred models
+- Quantitative similarity between grokked circuits and transferred circuits
+
 ## Citation
 
 This experiment builds on:
@@ -191,12 +228,13 @@ This experiment builds on:
 
 After running the base experiment, you can extend it:
 
-1. **Different source checkpoints**: Try other addition models (e.g., `wd_10-2_mod_addition_loss_curve.pth`)
-2. **Different target tasks**: Test transfer to multiplication or other operations
-3. **Partially grokked models**: Use checkpoints from earlier in training (before full grokking)
-4. **Hyperparameter sweep**: Vary learning rate, weight decay, or training fraction
-5. **Layer-wise analysis**: Freeze different layers to see which parts transfer best
-6. **Representation analysis**: Visualize activations to understand what transfers
+1. **Mechanistic interpretability** ⭐: Run `circuit_analysis.ipynb` to understand what circuits actually transfer
+2. **Different source checkpoints**: Try other addition models (e.g., `wd_10-2_mod_addition_loss_curve.pth`)
+3. **Different target tasks**: Test transfer to multiplication or other operations
+4. **Partially grokked models**: Use checkpoints from earlier in training (before full grokking)
+5. **Hyperparameter sweep**: Vary learning rate, weight decay, or training fraction
+6. **Layer-wise analysis**: Freeze different layers to see which parts transfer best
+7. **Progressive transfer**: Analyze circuit evolution during transfer training (not just final state)
 
 ## Questions?
 
