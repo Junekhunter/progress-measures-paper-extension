@@ -14,8 +14,11 @@ import torch.optim as optim
 import time
 import torch.nn.functional as F
 import einops
-import random 
-from . import helpers 
+import random
+try:
+    from . import helpers
+except ImportError:
+    import helpers
 from dataclasses import dataclass
 import os
 import wandb
