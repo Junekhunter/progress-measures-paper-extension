@@ -77,16 +77,34 @@ We provide **three notebooks** for different use cases:
 ### Option 5: Mechanistic Circuit Analysis (`circuit_analysis.ipynb`) 🔬 **INTERPRETABILITY**
 - **Best for**: Understanding WHAT circuits actually transfer between models
 - **Prerequisite**: Must run Option 4 (3-way experiment) first to generate model checkpoints
-- **Key Question**: Do grokked circuits structurally transfer more than memorized circuits?
+- **Key Questions**:
+  - Do grokked circuits structurally transfer more than memorized circuits?
+  - Were final circuits latent from initialization or did they emerge during training?
 - **Analyses**:
   - ✅ **Fourier analysis**: Which frequency components each model uses
   - ✅ **Neuron specialization**: Which frequencies each MLP neuron detects
   - ✅ **Attention patterns**: How attention heads allocate across positions (a, b, =)
   - ✅ **Circuit similarity**: Quantitative comparison of circuit structure
+  - ✅ **Circuit evolution**: Analysis of learning dynamics and circuit formation 🆕
 - **Uses**: Interpretability tools from the original progress-measures paper
-- **Outputs**: 4 publication-quality mechanistic visualizations
+- **Outputs**: 5 publication-quality mechanistic visualizations
 - **Runtime**: ~5-10 minutes (analysis only, no training)
 - **Direct link**: [Open in Colab](https://colab.research.google.com/github/Junekhunter/progress-measures-paper-extension/blob/main/circuit_analysis.ipynb)
+
+### Option 6: Addition Retention Test (`test_on_addition.ipynb`) 🧪 **CATASTROPHIC FORGETTING**
+- **Best for**: Testing whether transfer causes catastrophic forgetting
+- **Prerequisite**: Must run Option 4 (3-way experiment) first
+- **Key Questions**:
+  - Do transferred models retain addition knowledge after subtraction training?
+  - Can grokked circuits perform both tasks (polysemanticity)?
+  - Do memorized models forget more than grokked models?
+- **Tests**: All 4 models (source + 3 transferred) on the original addition task
+- **Outputs**:
+  - Addition retention visualization
+  - Train vs test comparison
+  - Analysis of multi-task capabilities
+- **Runtime**: ~2-3 minutes (evaluation only)
+- **Direct link**: [Open in Colab](https://colab.research.google.com/github/Junekhunter/progress-measures-paper-extension/blob/main/test_on_addition.ipynb)
 
 ### Quick Start (Multi-Seed)
 
@@ -137,7 +155,8 @@ If the grokked addition model has learned generalizable representations of modul
 - **`transfer_learning_multiseed.ipynb`**: Multi-seed with 5K epochs (2-3 hr)
 - **`transfer_learning_comprehensive.ipynb`**: Extended epochs + 99.9% threshold (6-8 hr)
 - **`transfer_learning_3way.ipynb`**: ⭐ **3-way comparison with memorized control (most rigorous, 8-10 hr)**
-- **`circuit_analysis.ipynb`**: 🔬 **Mechanistic interpretability analysis (5-10 min)**
+- **`circuit_analysis.ipynb`**: 🔬 **Mechanistic interpretability + circuit evolution (5-10 min)**
+- **`test_on_addition.ipynb`**: 🧪 **Addition retention / catastrophic forgetting test (2-3 min)**
 
 ### Analysis Tools
 - **`analyze_seed_outlier.py`**: Comprehensive standalone analysis of seed variance
@@ -209,7 +228,8 @@ MyDrive/grokking_transfer_experiments/3way_run_YYYYMMDD_HHMMSS/figures/
 ├── fourier_coefficients_comparison.png    # Frequency components used by each model
 ├── neuron_frequency_specialization.png    # Which frequencies neurons detect
 ├── attention_patterns.png                 # Attention head behavior (4 models × heads)
-└── circuit_similarity_matrices.png        # Quantitative circuit similarity
+├── circuit_similarity_matrices.png        # Quantitative circuit similarity
+└── circuit_evolution_analysis.png         # Learning dynamics and circuit formation 🆕
 ```
 
 These visualizations reveal:
@@ -217,6 +237,16 @@ These visualizations reveal:
 - How MLP neurons specialize for different frequency detection
 - How attention patterns differ between source and transferred models
 - Quantitative similarity between grokked circuits and transferred circuits
+- Whether final circuits were latent from initialization or emerged during training
+
+### Addition Retention Test 🧪
+After running `test_on_addition.ipynb`:
+```
+MyDrive/grokking_transfer_experiments/3way_run_YYYYMMDD_HHMMSS/figures/
+└── addition_retention_test.png            # All models tested on original addition task
+```
+
+Shows whether models retain addition knowledge after subtraction training (catastrophic forgetting analysis)
 
 ## Citation
 
